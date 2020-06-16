@@ -3,9 +3,9 @@ const mysql = require('mysql')
 const con = mysql.createConnection({
   host: 'remotemysql.com',
   port: 3306,
-  user: 'fSncS4Zjuv',
-  password: 'c9sFrq5RGN',
-  database: 'fSncS4Zjuv',
+  user: 'root',
+  password: '',
+  database: 'cms',
 })
 con.connect(function (err) {
   if (err) throw err
