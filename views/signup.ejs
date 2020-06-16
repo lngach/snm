@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include shared/link %>
+  <body data-spy="scroll" data-target=".fixed-top">
+    <!-- Preloader -->
+    <div class="spinner-wrapper">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- end of preloader -->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img src="/images/logo.svg" alt="alternative"
+        /></a>
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+
+    <!-- Header -->
+    <header id="header" class="ex-2-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Sign Up</h1>
+            <p>
+              Fill out the form below to sign up for Tivo. Already signed up?
+              Then just <a class="white" href="/auth">Log In</a>
+            </p>
+            <!-- Sign Up Form -->
+            <div class="form-container">
+              <form id="signUpForm" data-toggle="validator" data-focus="false">
+                <h1 style="color: black; font-size: small;" id="message"></h1>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control-input"
+                    id="semail"
+                    required
+                  />
+                  <label class="label-control" for="semail">Email</label>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control-input"
+                    id="sname"
+                    required
+                  />
+                  <label class="label-control" for="sname">Name</label>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control-input"
+                    id="spassword"
+                    required
+                  />
+                  <label class="label-control" for="spassword">Password</label>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control-input"
+                    id="srepeatpassword"
+                    required
+                  />
+                  <label class="label-control" for="spassword"
+                    >Repeat Password</label
+                  >
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group checkbox">
+                  <input
+                    type="checkbox"
+                    id="sterms"
+                    value="Agreed-to-Terms"
+                    required
+                  />I agree with Tivo's
+                  <a href="privacy-policy.html">Privacy Policy</a> and
+                  <a href="terms-conditions.html">Terms Conditions</a>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="form-control-submit-button">
+                    SIGN UP
+                  </button>
+                </div>
+                <div class="form-message">
+                  <div id="smsgSubmit" class="h3 text-center hidden"></div>
+                </div>
+              </form>
+            </div>
+            <!-- end of form container -->
+            <!-- end of sign up form -->
+          </div>
+          <!-- end of col -->
+        </div>
+        <!-- end of row -->
+      </div>
+      <!-- end of container -->
+    </header>
+    <!-- end of ex-header -->
+    <!-- end of header -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <% include shared/script %>
+    <script>
+      $(() => {
+        if (localStorage.getItem('user')) {
+          window.location.href = '/'
+        }
+      })
+      $('#semail').on('keyup', () => {
+        var email = $('#semail').val()
+        if (!validateEmail(email)) {
+          $('#message').text('Email not valid!')
+        } else {
+          $('#message').text('')
+        }
+      })
+      $('#srepeatpassword, #spassword').on('keyup', () => {
+        var repeatpassword = $('#srepeatpassword').val()
+        var password = $('#spassword').val()
+        if (password.length < 6) {
+          $('#message').text('Password must more than 6 characters')
+        } else if (password !== repeatpassword) {
+          $('#message').text('Confirm password not match')
+        } else {
+          $('#message').text('')
+        }
+      })
+      $('#signUpForm').on('submit', (e) => {
+        e.preventDefault()
+        var email = $('#semail').val()
+        var name = $('#sname').val()
+        var password = $('#spassword').val()
+        var repeatpassword = $('#srepeatpassword').val()
+        if (password.length < 6) return
+        if (!validateEmail(email)) return
+        if (password !== repeatpassword) return
+        $.ajax({
+          url: '/auth/signup',
+          method: 'POST',
+          data: { email, name, password },
+        }).done((res) => {
+          if (!res.success) {
+            $('#message').text(res.message)
+          } else {
+            alert(res.message)
+            window.location.href = '/auth'
+          }
+        })
+      })
+      function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return re.test(String(email).toLowerCase())
+      }
+    </script>
+  </body>
+</html>
