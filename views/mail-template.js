@@ -359,7 +359,7 @@ const mailTemplate = `
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                    <td> <a href="http://localhost:3000/auth/resetPassword?token=dataToReplace" target="_blank">Click</a> </td>
+                                    <td> <a href="https://13.228.21.243/auth/resetPassword?token=dataToReplace" target="_blank">Click</a> </td>
                                     </tr>
                                 </tbody>
                                 </table>

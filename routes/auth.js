@@ -110,6 +110,7 @@ router.post('/forgotpassword', function (req, res) {
       if (error) {
         result.success = false
         result.message = 'Error while sending reset password token!'
+        console.log(error)
         return res.json(result)
       } else {
         con.query(
