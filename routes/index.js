@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/sitemap.xml', (_, res) => {
-  res.sendFile(__dirname + '/sitemap.txt')
+  res.sendFile('./../sitemap.txt')
 })
 
 module.exports = router
