@@ -13,6 +13,16 @@
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://snmtechnology.com/about</loc>
+  <lastmod>2020-06-19T09:34:30+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://snmtechnology.com/privacy</loc>
+  <lastmod>2020-06-19T09:34:30+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
   <loc>https://snmtechnology.com/auth</loc>
   <lastmod>2020-06-19T09:34:30+00:00</lastmod>
   <priority>0.80</priority>
